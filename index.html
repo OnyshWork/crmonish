@@ -1,0 +1,2775 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            background-color: #003366;
+        }
+        .tab-content {
+            margin-top: 30px;
+        }
+        .btn-primary, .btn-success {
+            background-color: #003366;
+            border-color: #003366;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .btn-info, .btn-danger, .btn-secondary {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">CRM System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" id="clients-tab" href="#" data-bs-toggle="tab" data-bs-target="#clients">Клиенты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="tasks-tab" href="#" data-bs-toggle="tab" data-bs-target="#tasks">Задачи</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="login-tab" href="#" data-bs-toggle="tab" data-bs-target="#login">Вход</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="register-tab" href="#" data-bs-toggle="tab" data-bs-target="#register">Регистрация</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="reports-tab" href="#" data-bs-toggle="tab" data-bs-target="#reports">Отчеты</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Tab Content -->
+<div class="container">
+    <div class="tab-content">
+        
+        <!-- Клиенты -->
+        <div class="tab-pane fade show active" id="clients">
+            <h2>Клиенты</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Имя</th>
+                        <th>Email</th>
+                        <th>Телефон</th>
+                        <th>Статус</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Пример клиента -->
+                    <tr>
+                        <td>Иван Иванов</td>
+                        <td>ivanov@example.com</td>
+                        <td>+7 900 123 45 67</td>
+                        <td>Активен</td>
+                        <td>
+                            <a href="#edit-client-1" class="btn btn-info" data-bs-toggle="tab">Редактировать</a>
+                            <a href="#" class="btn btn-danger">Удалить</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="#create-client" class="btn btn-primary" data-bs-toggle="tab">Добавить клиента</a>
+        </div>
+
+        <!-- Создание клиента -->
+        <div class="tab-pane fade" id="create-client">
+            <h2>Создать нового клиента</h2>
+            <form action="/clients/create" method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Имя</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Телефон</label>
+                    <input type="text" class="form-control" id="phone" name="phone" required>
+                </div>
+                <div class="mb-3">
+                    <label for="status" class="form-label">Статус</label>
+                    <input type="text" class="form-control" id="status" name="status" required>
+                </div>
+                <button type="submit" class="btn btn-success">Создать клиента</button>
+            </form>
+            <a href="#clients" class="btn btn-secondary" data-bs-toggle="tab">Назад</a>
+        </div>
+
+        <!-- Задачи -->
+        <div class="tab-pane fade" id="tasks">
+            <h2>Задачи</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Клиент</th>
+                        <th>Название</th>
+                        <th>Дата выполнения</th>
+                        <th>Приоритет</th>
+                        <th>Статус</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Иван Иванов</td>
+                        <td>Согласовать документ</td>
+                        <td>2024-11-30</td>
+                        <td>Высокий</td>
+                        <td>В процессе</td>
+                    </tr>
+                    <tr>
+                        <td>Мария Петрова</td>
+                        <td>Обновить информацию</td>
+                        <td>2024-12-01</td>
+                        <td>Средний</td>
+                        <td>Ожидает</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="#create-task" class="btn btn-primary" data-bs-toggle="tab">Создать задачу</a>
+        </div>
+
+        <!-- Создание задачи -->
+        <div class="tab-pane fade" id="create-task">
+            <h2>Создать новую задачу</h2>
+            <form action="/tasks/create" method="POST">
+                <div class="mb-3">
+                    <label for="client_id" class="form-label">Выберите клиента</label>
+                    <select class="form-control" id="client_id" name="client_id" required>
+                        <option value="" disabled selected>Выберите клиента</option>
+                        <option value="1">Иван Иванов</option>
+                        <option value="2">Мария Петрова</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="task_name" class="form-label">Название задачи</label>
+                    <input type="text" class="form-control" id="task_name" name="task_name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="due_date" class="form-label">Дата выполнения</label>
+                    <input type="date" class="form-control" id="due_date" name="due_date" required>
+                </div>
+                <div class="mb-3">
+                    <label for="priority" class="form-label">Приоритет</label>
+                    <select class="form-control" id="priority" name="priority" required>
+                        <option value="low">Низкий</option>
+                        <option value="medium">Средний</option>
+                        <option value="high">Высокий</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Создать задачу</button>
+                <a href="#tasks" class="btn btn-secondary" data-bs-toggle="tab">Назад</a>
+            </form>
+        </div>
+
+        <!-- Вход -->
+        <div class="tab-pane fade" id="login">
+            <h2>Вход в систему</h2>
+            <form action="/login" method="POST">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Логин</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Пароль</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Войти</button>
+                <p class="mt-3">Нет аккаунта? <a href="#register" data-bs-toggle="tab">Зарегистрироваться</a></p>
+            </form>
+        </div>
+
+        <!-- Регистрация -->
+        <div class="tab-pane fade" id="register">
+            <h2>Регистрация</h2>
+            <form action="/register" method="POST">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Логин</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Пароль</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                <p class="mt-3">Уже есть аккаунт? <a href="#login" data-bs-toggle="tab">Войти</a></p>
+            </form>
+        </div>
+
+        <!-- Отчеты -->
+        <div class="tab-pane fade" id="reports">
+            <h2>Отчеты</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Клиент</th>
+                        <th>Количество задач</th>
+                        <th>Завершенные задачи</th>
+                        <th>Статус</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Иван Иванов</td>
+                        <td>5</td>
+                        <td>2</td>
+                        <td>Активен</td>
+                    </tr>
+                    <tr>
+                        <td>Мария Петрова</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>Ожидает</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+<!-- Продолжение CRM-системы -->
+
+<!-- Таблица клиентов -->
+<div class="tab-pane fade" id="clients">
+    <h2>Клиенты</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Email</th>
+                <th>Телефон</th>
+                <th>Статус</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Иван Иванов</td>
+                <td>ivanov@example.com</td>
+                <td>+7 900 123 45 67</td>
+                <td>Активен</td>
+                <td>
+                    <a href="#edit-client-1" class="btn btn-info" data-bs-toggle="tab">Редактировать</a>
+                    <a href="#" class="btn btn-danger">Удалить</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Мария Петрова</td>
+                <td>maria@example.com</td>
+                <td>+7 900 765 43 21</td>
+                <td>Ожидает</td>
+                <td>
+                    <a href="#edit-client-2" class="btn btn-info" data-bs-toggle="tab">Редактировать</a>
+                    <a href="#" class="btn btn-danger">Удалить</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="#create-client" class="btn btn-primary" data-bs-toggle="tab">Добавить клиента</a>
+</div>
+
+<!-- Редактировать клиента -->
+<div class="tab-pane fade" id="edit-client-1">
+    <h2>Редактировать клиента</h2>
+    <form action="/clients/edit/1" method="POST">
+        <div class="mb-3">
+            <label for="name" class="form-label">Имя</label>
+            <input type="text" class="form-control" id="name" name="name" value="Иван Иванов" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="ivanov@example.com" required>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Телефон</label>
+            <input type="text" class="form-control" id="phone" name="phone" value="+7 900 123 45 67" required>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Статус</label>
+            <input type="text" class="form-control" id="status" name="status" value="Активен" required>
+        </div>
+        <button type="submit" class="btn btn-success">Сохранить изменения</button>
+        <a href="#clients" class="btn btn-secondary" data-bs-toggle="tab">Назад</a>
+    </form>
+</div>
+
+<div class="tab-pane fade" id="edit-client-2">
+    <h2>Редактировать клиента</h2>
+    <form action="/clients/edit/2" method="POST">
+        <div class="mb-3">
+            <label for="name" class="form-label">Имя</label>
+            <input type="text" class="form-control" id="name" name="name" value="Мария Петрова" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="maria@example.com" required>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Телефон</label>
+            <input type="text" class="form-control" id="phone" name="phone" value="+7 900 765 43 21" required>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Статус</label>
+            <input type="text" class="form-control" id="status" name="status" value="Ожидает" required>
+        </div>
+        <button type="submit" class="btn btn-success">Сохранить изменения</button>
+        <a href="#clients" class="btn btn-secondary" data-bs-toggle="tab">Назад</a>
+    </form>
+</div>
+
+<!-- Добавить задачу -->
+<div class="tab-pane fade" id="create-task">
+    <h2>Создать новую задачу</h2>
+    <form action="/tasks/create" method="POST">
+        <div class="mb-3">
+            <label for="client_id" class="form-label">Выберите клиента</label>
+            <select class="form-control" id="client_id" name="client_id" required>
+                <option value="" disabled selected>Выберите клиента</option>
+                <option value="1">Иван Иванов</option>
+                <option value="2">Мария Петрова</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="task_name" class="form-label">Название задачи</label>
+            <input type="text" class="form-control" id="task_name" name="task_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="due_date" class="form-label">Дата выполнения</label>
+            <input type="date" class="form-control" id="due_date" name="due_date" required>
+        </div>
+        <div class="mb-3">
+            <label for="priority" class="form-label">Приоритет</label>
+            <select class="form-control" id="priority" name="priority" required>
+                <option value="low">Низкий</option>
+                <option value="medium">Средний</option>
+                <option value="high">Высокий</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Создать задачу</button>
+        <a href="#tasks" class="btn btn-secondary" data-bs-toggle="tab">Назад</a>
+    </form>
+</div>
+
+<!-- Изменить задачу -->
+<div class="tab-pane fade" id="edit-task">
+    <h2>Редактировать задачу</h2>
+    <form action="/tasks/edit" method="POST">
+        <div class="mb-3">
+            <label for="task_name" class="form-label">Название задачи</label>
+            <input type="text" class="form-control" id="task_name" name="task_name" value="Согласовать документ" required>
+        </div>
+        <div class="mb-3">
+            <label for="client_id" class="form-label">Выберите клиента</label>
+            <select class="form-control" id="client_id" name="client_id" required>
+                <option value="1">Иван Иванов</option>
+                <option value="2">Мария Петрова</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="due_date" class="form-label">Дата выполнения</label>
+            <input type="date" class="form-control" id="due_date" name="due_date" value="2024-11-30" required>
+        </div>
+        <div class="mb-3">
+            <label for="priority" class="form-label">Приоритет</label>
+            <select class="form-control" id="priority" name="priority" required>
+                <option value="low">Низкий</option>
+                <option value="medium">Средний</option>
+                <option value="high">Высокий</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Сохранить изменения</button>
+        <a href="#tasks" class="btn btn-secondary" data-bs-toggle="tab">Назад</a>
+    </form>
+</div>
+
+<!-- Отчеты -->
+<div class="tab-pane fade" id="reports">
+    <h2>Отчеты</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Клиент</th>
+                <th>Количество задач</th>
+                <th>Завершенные задачи</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Иван Иванов</td>
+                <td>5</td>
+                <td>2</td>
+                <td>Активен</td>
+            </tr>
+            <tr>
+                <td>Мария Петрова</td>
+                <td>3</td>
+                <td>1</td>
+                <td>Ожидает</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+<!-- Продолжение CRM-системы с улучшениями в дизайне и фонах -->
+
+<!-- Красивая тема и фоновая картинка -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('https://www.w3schools.com/w3images/mountains.jpg');
+            background-size: cover;
+            background-position: center center;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            background-attachment: fixed;
+        }
+        .navbar {
+            background-color: rgba(0, 51, 102, 0.85);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .nav-link {
+            color: #f8f9fa !important;
+        }
+        .nav-link:hover {
+            background-color: rgba(0, 51, 102, 0.7);
+            border-radius: 5px;
+        }
+        .tab-content {
+            margin-top: 40px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            color: #003366;
+        }
+        .table {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .btn-primary, .btn-success, .btn-danger, .btn-info {
+            background-color: #003366;
+            border-color: #003366;
+        }
+        .btn-primary:hover, .btn-success:hover, .btn-danger:hover, .btn-info:hover {
+            background-color: #0050a0;
+            border-color: #0050a0;
+        }
+        .form-control, select.form-control {
+            border-radius: 8px;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: rgba(0, 51, 102, 0.85);
+            color: white;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<!-- Основная структура -->
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">CRM System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="clients-tab" href="#" data-bs-toggle="tab" data-bs-target="#clients">Клиенты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tasks-tab" href="#" data-bs-toggle="tab" data-bs-target="#tasks">Задачи</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="login-tab" href="#" data-bs-toggle="tab" data-bs-target="#login">Вход</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="register-tab" href="#" data-bs-toggle="tab" data-bs-target="#register">Регистрация</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Таблицы и формы CRM -->
+
+    <!-- Клиенты -->
+    <div class="container mt-5">
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="clients">
+                <h2>Список клиентов</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Email</th>
+                            <th>Телефон</th>
+                            <th>Статус</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Дмитрий Сидоров</td>
+                            <td>d.sidorov@example.com</td>
+                            <td>+7 900 123 45 00</td>
+                            <td>Активен</td>
+                            <td>
+                                <a href="#edit-client-1" class="btn btn-info" data-bs-toggle="tab">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Светлана Смирнова</td>
+                            <td>svetlana@example.com</td>
+                            <td>+7 900 555 66 77</td>
+                            <td>Ожидает</td>
+                            <td>
+                                <a href="#edit-client-2" class="btn btn-info" data-bs-toggle="tab">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="#create-client" class="btn btn-primary" data-bs-toggle="tab">Добавить нового клиента</a>
+            </div>
+
+            <!-- Создание нового клиента -->
+            <div class="tab-pane fade" id="create-client">
+                <h2>Создать нового клиента</h2>
+                <form action="/clients/create" method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Имя</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Телефон</label>
+                        <input type="text" class="form-control" id="phone" name="phone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Статус</label>
+                        <input type="text" class="form-control" id="status" name="status" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Создать клиента</button>
+                    <a href="#clients" class="btn btn-secondary" data-bs-toggle="tab">Назад</a>
+                </form>
+            </div>
+
+            <!-- Задачи -->
+            <div class="tab-pane fade" id="tasks">
+                <h2>Список задач</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Клиент</th>
+                            <th>Название задачи</th>
+                            <th>Дата выполнения</th>
+                            <th>Приоритет</th>
+                            <th>Статус</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Дмитрий Сидоров</td>
+                            <td>Согласовать проект</td>
+                            <td>2024-12-15</td>
+                            <td>Высокий</td>
+                            <td>Выполняется</td>
+                        </tr>
+                        <tr>
+                            <td>Светлана Смирнова</td>
+                            <td>Подготовка отчета</td>
+                            <td>2024-11-30</td>
+                            <td>Средний</td>
+                            <td>Ожидает</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="#create-task" class="btn btn-primary" data-bs-toggle="tab">Добавить новую задачу</a>
+            </div>
+
+            <!-- Создание задачи -->
+            <div class="tab-pane fade" id="create-task">
+                <h2>Создать новую задачу</h2>
+                <form action="/tasks/create" method="POST">
+                    <div class="mb-3">
+                        <label for="client_id" class="form-label">Выберите клиента</label>
+                        <select class="form-control" id="client_id" name="client_id" required>
+                            <option value="" disabled selected>Выберите клиента</option>
+                            <option value="1">Дмитрий Сидоров</option>
+                            <option value="2">Светлана Смирнова</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="task_name" class="form-label">Название задачи</label>
+                        <input type="text" class="form-control" id="task_name" name="task_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="due_date" class="form-label">Дата выполнения</label>
+                        <input type="date" class="form-control" id="due_date" name="due_date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="priority" class="form-label">Приоритет</label>
+                        <select class="form-control" id="priority" name="priority" required>
+                            <option value="low">Низкий</option>
+                            <option value="medium">Средний</option>
+                            <option value="high">Высокий</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Создать задачу</button>
+                    <a href="#tasks" class="btn btn-secondary" data-bs-toggle="tab">Назад</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Футер -->
+    <div class="footer">
+        <p>&copy; 2024 CRM System. Все права защищены.</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+<!-- Четвертая часть CRM-системы с иерархией пользователей -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM System - Иерархия</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('https://www.w3schools.com/w3images/mountains.jpg');
+            background-size: cover;
+            background-position: center center;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            background-attachment: fixed;
+        }
+        .navbar {
+            background-color: rgba(0, 51, 102, 0.85);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .nav-link {
+            color: #f8f9fa !important;
+        }
+        .nav-link:hover {
+            background-color: rgba(0, 51, 102, 0.7);
+            border-radius: 5px;
+        }
+        .tab-content {
+            margin-top: 40px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            color: #003366;
+        }
+        .table {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .btn-primary, .btn-success, .btn-danger, .btn-info {
+            background-color: #003366;
+            border-color: #003366;
+        }
+        .btn-primary:hover, .btn-success:hover, .btn-danger:hover, .btn-info:hover {
+            background-color: #0050a0;
+            border-color: #0050a0;
+        }
+        .form-control, select.form-control {
+            border-radius: 8px;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: rgba(0, 51, 102, 0.85);
+            color: white;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">CRM System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="clients-tab" href="#" data-bs-toggle="tab" data-bs-target="#clients">Клиенты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tasks-tab" href="#" data-bs-toggle="tab" data-bs-target="#tasks">Задачи</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="hierarchy-tab" href="#" data-bs-toggle="tab" data-bs-target="#hierarchy">Иерархия</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="login-tab" href="#" data-bs-toggle="tab" data-bs-target="#login">Вход</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="register-tab" href="#" data-bs-toggle="tab" data-bs-target="#register">Регистрация</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Контент -->
+
+    <div class="container mt-5">
+        <div class="tab-content">
+            <!-- Клиенты -->
+            <div class="tab-pane fade show active" id="clients">
+                <h2>Список клиентов</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Email</th>
+                            <th>Телефон</th>
+                            <th>Статус</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Дмитрий Сидоров</td>
+                            <td>d.sidorov@example.com</td>
+                            <td>+7 900 123 45 00</td>
+                            <td>Активен</td>
+                            <td>
+                                <a href="#edit-client-1" class="btn btn-info" data-bs-toggle="tab">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Светлана Смирнова</td>
+                            <td>svetlana@example.com</td>
+                            <td>+7 900 555 66 77</td>
+                            <td>Ожидает</td>
+                            <td>
+                                <a href="#edit-client-2" class="btn btn-info" data-bs-toggle="tab">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="#create-client" class="btn btn-primary" data-bs-toggle="tab">Добавить нового клиента</a>
+            </div>
+
+            <!-- Иерархия пользователей -->
+            <div class="tab-pane fade" id="hierarchy">
+                <h2>Иерархия пользователей</h2>
+                <p>Здесь можно настроить роли пользователей и их доступ к разным частям CRM.</p>
+                
+                <!-- Иерархия -->
+                <h4>Сотрудники</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Роль</th>
+                            <th>Уровень доступа</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Анна Иванова</td>
+                            <td>Менеджер</td>
+                            <td>Высокий</td>
+                            <td>
+                                <a href="#edit-user-1" class="btn btn-info" data-bs-toggle="tab">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Иван Петров</td>
+                            <td>Администратор</td>
+                            <td>Администратор</td>
+                            <td>
+                                <a href="#edit-user-2" class="btn btn-info" data-bs-toggle="tab">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- Создание нового пользователя -->
+                <h4>Создать нового пользователя</h4>
+                <form action="/users/create" method="POST">
+                    <div class="mb-3">
+                        <label for="user_name" class="form-label">Имя</label>
+                        <input type="text" class="form-control" id="user_name" name="user_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Роль</label>
+                        <select class="form-control" id="role" name="role" required>
+                            <option value="admin">Администратор</option>
+                            <option value="manager">Менеджер</option>
+                            <option value="staff">Сотрудник</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="access_level" class="form-label">Уровень доступа</label>
+                        <select class="form-control" id="access_level" name="access_level" required>
+                            <option value="high">Высокий</option>
+                            <option value="medium">Средний</option>
+                            <option value="low">Низкий</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Создать пользователя</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Футер -->
+    <div class="footer">
+        <p>&copy; 2024 CRM System. Все права защищены.</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+<!-- Пятая часть CRM-системы с управлением проектами и задачами -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM System - Проекты и Задачи</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" />
+    <style>
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+            background-color: #003366;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        .nav-link {
+            color: #f8f9fa !important;
+        }
+        .nav-link:hover {
+            background-color: rgba(0, 51, 102, 0.7);
+            border-radius: 5px;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .card-header {
+            background-color: #003366;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        .btn-primary, .btn-success, .btn-danger {
+            background-color: #003366;
+            border-color: #003366;
+        }
+        .btn-primary:hover, .btn-success:hover, .btn-danger:hover {
+            background-color: #0050a0;
+            border-color: #0050a0;
+        }
+        .table {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .calendar-container {
+            max-width: 100%;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #003366;
+            color: white;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">CRM System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#projects" data-bs-toggle="tab">Проекты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tasks" data-bs-toggle="tab">Задачи</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#calendar" data-bs-toggle="tab">Календарь</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Контент -->
+    <div class="container mt-5">
+        <div class="tab-content">
+            <!-- Проекты -->
+            <div class="tab-pane fade show active" id="projects">
+                <h2>Управление проектами</h2>
+                <div class="card">
+                    <div class="card-header">Создать новый проект</div>
+                    <div class="card-body">
+                        <form action="/projects/create" method="POST">
+                            <div class="mb-3">
+                                <label for="project_name" class="form-label">Название проекта</label>
+                                <input type="text" class="form-control" id="project_name" name="project_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="project_description" class="form-label">Описание проекта</label>
+                                <textarea class="form-control" id="project_description" name="project_description" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success">Создать проект</button>
+                        </form>
+                    </div>
+                </div>
+                <h3>Список проектов</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Описание</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Проект 1</td>
+                            <td>Описание проекта 1</td>
+                            <td>
+                                <a href="#edit-project-1" class="btn btn-info" data-bs-toggle="tab">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Проект 2</td>
+                            <td>Описание проекта 2</td>
+                            <td>
+                                <a href="#edit-project-2" class="btn btn-info" data-bs-toggle="tab">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Задачи -->
+            <div class="tab-pane fade" id="tasks">
+                <h2>Управление задачами</h2>
+                <div class="card">
+                    <div class="card-header">Создать новую задачу</div>
+                    <div class="card-body">
+                        <form action="/tasks/create" method="POST">
+                            <div class="mb-3">
+                                <label for="task_name" class="form-label">Название задачи</label>
+                                <input type="text" class="form-control" id="task_name" name="task_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="task_due_date" class="form-label">Срок выполнения</label>
+                                <input type="date" class="form-control" id="task_due_date" name="task_due_date" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="task_project" class="form-label">Проект</label>
+                                <select class="form-control" id="task_project" name="task_project" required>
+                                    <option value="1">Проект 1</option>
+                                    <option value="2">Проект 2</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-success">Создать задачу</button>
+                        </form>
+                    </div>
+                </div>
+                <h3>Список задач</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Проект</th>
+                            <th>Срок</th>
+                            <th>Статус</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Задача 1</td>
+                            <td>Проект 1</td>
+                            <td>2024-12-01</td>
+                            <td>Выполняется</td>
+                            <td>
+                                <a href="#edit-task-1" class="btn btn-info" data-bs-toggle="tab">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Задача 2</td>
+                            <td>Проект 2</td>
+                            <td>2024-12-10</td>
+                            <td>Ожидает</td>
+                            <td>
+                                <a href="#edit-task-2" class="btn btn-info" data-bs-toggle="tab">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Календарь -->
+            <div class="tab-pane fade" id="calendar">
+                <h2>Календарь задач</h2>
+                <div class="calendar-container">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 CRM System. Все права защищены.</p>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                events: [
+                    { title: 'Задача 1', start: '2024-12-01' },
+                    { title: 'Задача 2', start: '2024-12-10' }
+                ]
+            });
+            calendar.render();
+        });
+    </script>
+</body>
+</html>
+<!-- Шестая часть CRM-системы с управлением пользователями и контактами -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM System - Пользователи и Контакты</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" />
+    <style>
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+            background-color: #003366;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        .nav-link {
+            color: #f8f9fa !important;
+        }
+        .nav-link:hover {
+            background-color: rgba(0, 51, 102, 0.7);
+            border-radius: 5px;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .card-header {
+            background-color: #003366;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        .btn-primary, .btn-success, .btn-danger {
+            background-color: #003366;
+            border-color: #003366;
+        }
+        .btn-primary:hover, .btn-success:hover, .btn-danger:hover {
+            background-color: #0050a0;
+            border-color: #0050a0;
+        }
+        .table {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #003366;
+            color: white;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">CRM System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#users" data-bs-toggle="tab">Пользователи</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacts" data-bs-toggle="tab">Контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#reports" data-bs-toggle="tab">Отчеты</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Контент -->
+    <div class="container mt-5">
+        <div class="tab-content">
+            <!-- Пользователи -->
+            <div class="tab-pane fade show active" id="users">
+                <h2>Управление пользователями</h2>
+                <div class="card">
+                    <div class="card-header">Добавить нового пользователя</div>
+                    <div class="card-body">
+                        <form action="/users/create" method="POST">
+                            <div class="mb-3">
+                                <label for="user_name" class="form-label">Имя пользователя</label>
+                                <input type="text" class="form-control" id="user_name" name="user_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="user_email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="user_email" name="user_email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="user_role" class="form-label">Роль</label>
+                                <select class="form-control" id="user_role" name="user_role" required>
+                                    <option value="admin">Администратор</option>
+                                    <option value="manager">Менеджер</option>
+                                    <option value="employee">Сотрудник</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-success">Создать пользователя</button>
+                        </form>
+                    </div>
+                </div>
+                <h3>Список пользователей</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Email</th>
+                            <th>Роль</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Иван Иванов</td>
+                            <td>ivanov@mail.com</td>
+                            <td>Менеджер</td>
+                            <td>
+                                <a href="#edit-user-1" class="btn btn-info" data-bs-toggle="tab">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Мария Петрова</td>
+                            <td>petrova@mail.com</td>
+                            <td>Администратор</td>
+                            <td>
+                                <a href="#edit-user-2" class="btn btn-info" data-bs-toggle="tab">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Контакты -->
+            <div class="tab-pane fade" id="contacts">
+                <h2>Управление контактами</h2>
+                <div class="card">
+                    <div class="card-header">Добавить новый контакт</div>
+                    <div class="card-body">
+                        <form action="/contacts/create" method="POST">
+                            <div class="mb-3">
+                                <label for="contact_name" class="form-label">Имя контакта</label>
+                                <input type="text" class="form-control" id="contact_name" name="contact_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contact_email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="contact_email" name="contact_email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contact_phone" class="form-label">Телефон</label>
+                                <input type="text" class="form-control" id="contact_phone" name="contact_phone">
+                            </div>
+                            <div class="mb-3">
+                                <label for="contact_company" class="form-label">Компания</label>
+                                <input type="text" class="form-control" id="contact_company" name="contact_company">
+                            </div>
+                            <button type="submit" class="btn btn-success">Добавить контакт</button>
+                        </form>
+                    </div>
+                </div>
+                <h3>Список контактов</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Email</th>
+                            <th>Телефон</th>
+                            <th>Компания</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Александр Сидоров</td>
+                            <td>sidorov@mail.com</td>
+                            <td>+7 123 456 789</td>
+                            <td>Компания А</td>
+                            <td>
+                                <a href="#edit-contact-1" class="btn btn-info" data-bs-toggle="tab">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Отчеты -->
+            <div class="tab-pane fade" id="reports">
+                <h2>Отчеты</h2>
+                <div class="card">
+                    <div class="card-header">Статистика по проектам</div>
+                    <div class="card-body">
+                        <p>Здесь будут отображаться отчеты и статистика по проектам.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Статистика по задачам</div>
+                    <div class="card-body">
+                        <p>Здесь будут отображаться отчеты и статистика по задачам.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 CRM System. Все права защищены.</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+<!-- Седьмая часть CRM-системы с дашбордом, виджетами и модальными окнами -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM System - Дашборд и Модальные окна</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+            background-color: #003366;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        .nav-link {
+            color: #f8f9fa !important;
+        }
+        .nav-link:hover {
+            background-color: rgba(0, 51, 102, 0.7);
+            border-radius: 5px;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .card-header {
+            background-color: #003366;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        .btn-primary, .btn-success, .btn-danger {
+            background-color: #003366;
+            border-color: #003366;
+        }
+        .btn-primary:hover, .btn-success:hover, .btn-danger:hover {
+            background-color: #0050a0;
+            border-color: #0050a0;
+        }
+        .table {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #003366;
+            color: white;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+        .widget {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .widget-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #003366;
+        }
+        .widget-body {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        .modal-header {
+            background-color: #003366;
+            color: white;
+        }
+        .modal-body {
+            background-color: #f4f6f9;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">CRM System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#dashboard" data-bs-toggle="tab">Дашборд</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#users" data-bs-toggle="tab">Пользователи</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacts" data-bs-toggle="tab">Контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#calendar" data-bs-toggle="tab">Календарь</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Контент -->
+    <div class="container mt-5">
+        <div class="tab-content">
+            <!-- Дашборд -->
+            <div class="tab-pane fade show active" id="dashboard">
+                <h2>Дашборд</h2>
+                <div class="row">
+                    <!-- Виджет - Задачи -->
+                    <div class="col-md-4">
+                        <div class="widget">
+                            <div class="widget-header">Задачи</div>
+                            <div class="widget-body">
+                                <p>Всего задач: 45</p>
+                                <p>Завершено: 20</p>
+                                <p>В процессе: 25</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Виджет - Пользователи -->
+                    <div class="col-md-4">
+                        <div class="widget">
+                            <div class="widget-header">Пользователи</div>
+                            <div class="widget-body">
+                                <p>Всего пользователей: 10</p>
+                                <p>Активных: 8</p>
+                                <p>Неактивных: 2</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Виджет - Контакты -->
+                    <div class="col-md-4">
+                        <div class="widget">
+                            <div class="widget-header">Контакты</div>
+                            <div class="widget-body">
+                                <p>Всего контактов: 25</p>
+                                <p>Новых: 5</p>
+                                <p>В процессе: 15</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Пользователи -->
+            <div class="tab-pane fade" id="users">
+                <h2>Управление пользователями</h2>
+                <div class="card">
+                    <div class="card-header">Добавить нового пользователя</div>
+                    <div class="card-body">
+                        <form action="/users/create" method="POST">
+                            <div class="mb-3">
+                                <label for="user_name" class="form-label">Имя пользователя</label>
+                                <input type="text" class="form-control" id="user_name" name="user_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="user_email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="user_email" name="user_email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="user_role" class="form-label">Роль</label>
+                                <select class="form-control" id="user_role" name="user_role" required>
+                                    <option value="admin">Администратор</option>
+                                    <option value="manager">Менеджер</option>
+                                    <option value="employee">Сотрудник</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-success">Создать пользователя</button>
+                        </form>
+                    </div>
+                </div>
+                <h3>Список пользователей</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Email</th>
+                            <th>Роль</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Иван Иванов</td>
+                            <td>ivanov@mail.com</td>
+                            <td>Менеджер</td>
+                            <td>
+                                <a href="#edit-user-1" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editUserModal">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Календарь задач -->
+            <div class="tab-pane fade" id="calendar">
+                <h2>Календарь задач</h2>
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 CRM System. Все права защищены.</p>
+    </div>
+
+    <!-- Модальные окна -->
+    <!-- Редактирование пользователя -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editUserModalLabel">Редактирование пользователя</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/users/edit" method="POST">
+                        <div class="mb-3">
+                            <label for="edit_user_name" class="form-label">Имя пользователя</label>
+                            <input type="text" class="form-control" id="edit_user_name" name="edit_user_name" value="Иван Иванов" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_user_email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="edit_user_email" name="edit_user_email" value="ivanov@mail.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_user_role" class="form-label">Роль</label>
+                            <select class="form-control" id="edit_user_role" name="edit_user_role" required>
+                                <option value="admin">Администратор</option>
+                                <option value="manager" selected>Менеджер</option>
+                                <option value="employee">Сотрудник</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">Сохранить изменения</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: [
+                    {
+                        title: 'Задача 1',
+                        start: '2024-11-15',
+                        end: '2024-11-17'
+                    },
+                    {
+                        title: 'Задача 2',
+                        start: '2024-11-20',
+                        end: '2024-11-22'
+                    }
+                ]
+            });
+            calendar.render();
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+<!-- Восьмая часть CRM-системы с добавлением контактов, отзывов и истории изменений -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM System - Контакты и История изменений</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+            background-color: #003366;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        .nav-link {
+            color: #f8f9fa !important;
+        }
+        .nav-link:hover {
+            background-color: rgba(0, 51, 102, 0.7);
+            border-radius: 5px;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .card-header {
+            background-color: #003366;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        .btn-primary, .btn-success, .btn-danger {
+            background-color: #003366;
+            border-color: #003366;
+        }
+        .btn-primary:hover, .btn-success:hover, .btn-danger:hover {
+            background-color: #0050a0;
+            border-color: #0050a0;
+        }
+        .table {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #003366;
+            color: white;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+        .widget {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .widget-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #003366;
+        }
+        .widget-body {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        .modal-header {
+            background-color: #003366;
+            color: white;
+        }
+        .modal-body {
+            background-color: #f4f6f9;
+        }
+        .rating {
+            display: flex;
+            justify-content: flex-start;
+            gap: 5px;
+        }
+        .rating i {
+            color: #FFD700;
+        }
+        .history-table th, .history-table td {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">CRM System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#contacts" data-bs-toggle="tab">Контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#history" data-bs-toggle="tab">История изменений</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Контент -->
+    <div class="container mt-5">
+        <div class="tab-content">
+            <!-- Контакты -->
+            <div class="tab-pane fade show active" id="contacts">
+                <h2>Управление контактами</h2>
+                <div class="card">
+                    <div class="card-header">Добавить новый контакт</div>
+                    <div class="card-body">
+                        <form action="/contacts/create" method="POST">
+                            <div class="mb-3">
+                                <label for="contact_name" class="form-label">Имя контакта</label>
+                                <input type="text" class="form-control" id="contact_name" name="contact_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contact_email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="contact_email" name="contact_email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contact_phone" class="form-label">Телефон</label>
+                                <input type="tel" class="form-control" id="contact_phone" name="contact_phone" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contact_address" class="form-label">Адрес</label>
+                                <input type="text" class="form-control" id="contact_address" name="contact_address" required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Добавить контакт</button>
+                        </form>
+                    </div>
+                </div>
+
+                <h3>Список контактов</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Email</th>
+                            <th>Телефон</th>
+                            <th>Адрес</th>
+                            <th>Рейтинг</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Петр Петров</td>
+                            <td>petrov@mail.com</td>
+                            <td>+7 123 456 78 90</td>
+                            <td>г. Москва, ул. Ленина 5</td>
+                            <td>
+                                <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-alt"></i>
+                                    <i class="fa fa-star-o"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="#edit-contact-1" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editContactModal">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- История изменений -->
+            <div class="tab-pane fade" id="history">
+                <h2>История изменений</h2>
+                <div class="card">
+                    <div class="card-header">Журнал изменений</div>
+                    <div class="card-body">
+                        <table class="table table-bordered history-table">
+                            <thead>
+                                <tr>
+                                    <th>Дата</th>
+                                    <th>Пользователь</th>
+                                    <th>Изменение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2024-11-14 10:30</td>
+                                    <td>Иван Иванов</td>
+                                    <td>Добавлен новый контакт: Петр Петров</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-11-14 11:00</td>
+                                    <td>Ольга Смирнова</td>
+                                    <td>Отредактирован контакт: Сергей Сергеев</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-11-14 12:45</td>
+                                    <td>Максим Федоров</td>
+                                    <td>Удален контакт: Анна Иванова</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 CRM System. Все права защищены.</p>
+    </div>
+
+    <!-- Модальные окна -->
+    <!-- Редактирование контакта -->
+    <div class="modal fade" id="editContactModal" tabindex="-1" aria-labelledby="editContactModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editContactModalLabel">Редактирование контакта</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/contacts/edit" method="POST">
+                        <div class="mb-3">
+                            <label for="edit_contact_name" class="form-label">Имя контакта</label>
+                            <input type="text" class="form-control" id="edit_contact_name" name="edit_contact_name" value="Петр Петров" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_contact_email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="edit_contact_email" name="edit_contact_email" value="petrov@mail.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_contact_phone" class="form-label">Телефон</label>
+                            <input type="tel" class="form-control" id="edit_contact_phone" name="edit_contact_phone" value="+7 123 456 78 90" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_contact_address" class="form-label">Адрес</label>
+                            <input type="text" class="form-control" id="edit_contact_address" name="edit_contact_address" value="г. Москва, ул. Ленина 5" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Сохранить изменения</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
+<!-- Девятая часть CRM-системы с добавлением задач и прогрессом выполнения -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM System - Задачи и Прогресс выполнения</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+            background-color: #003366;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        .nav-link {
+            color: #f8f9fa !important;
+        }
+        .nav-link:hover {
+            background-color: rgba(0, 51, 102, 0.7);
+            border-radius: 5px;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .card-header {
+            background-color: #003366;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        .btn-primary, .btn-success, .btn-danger {
+            background-color: #003366;
+            border-color: #003366;
+        }
+        .btn-primary:hover, .btn-success:hover, .btn-danger:hover {
+            background-color: #0050a0;
+            border-color: #0050a0;
+        }
+        .table {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #003366;
+            color: white;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+        .widget {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .widget-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #003366;
+        }
+        .widget-body {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        .modal-header {
+            background-color: #003366;
+            color: white;
+        }
+        .modal-body {
+            background-color: #f4f6f9;
+        }
+        .task-status {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .task-status.pending {
+            background-color: #f39c12;
+            color: white;
+        }
+        .task-status.in-progress {
+            background-color: #2980b9;
+            color: white;
+        }
+        .task-status.completed {
+            background-color: #27ae60;
+            color: white;
+        }
+        .progress {
+            height: 20px;
+        }
+        .task-title {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">CRM System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#contacts" data-bs-toggle="tab">Контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tasks" data-bs-toggle="tab">Задачи</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Контент -->
+    <div class="container mt-5">
+        <div class="tab-content">
+            <!-- Контакты -->
+            <div class="tab-pane fade show active" id="contacts">
+                <h2>Управление контактами</h2>
+                <div class="card">
+                    <div class="card-header">Добавить новый контакт</div>
+                    <div class="card-body">
+                        <form action="/contacts/create" method="POST">
+                            <div class="mb-3">
+                                <label for="contact_name" class="form-label">Имя контакта</label>
+                                <input type="text" class="form-control" id="contact_name" name="contact_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contact_email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="contact_email" name="contact_email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contact_phone" class="form-label">Телефон</label>
+                                <input type="tel" class="form-control" id="contact_phone" name="contact_phone" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contact_address" class="form-label">Адрес</label>
+                                <input type="text" class="form-control" id="contact_address" name="contact_address" required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Добавить контакт</button>
+                        </form>
+                    </div>
+                </div>
+
+                <h3>Список контактов</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Email</th>
+                            <th>Телефон</th>
+                            <th>Адрес</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Петр Петров</td>
+                            <td>petrov@mail.com</td>
+                            <td>+7 123 456 78 90</td>
+                            <td>г. Москва, ул. Ленина 5</td>
+                            <td>
+                                <a href="#edit-contact-1" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editContactModal">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Задачи -->
+            <div class="tab-pane fade" id="tasks">
+                <h2>Задачи</h2>
+                <div class="card">
+                    <div class="card-header">Добавить задачу</div>
+                    <div class="card-body">
+                        <form action="/tasks/create" method="POST">
+                            <div class="mb-3">
+                                <label for="task_title" class="form-label">Заголовок задачи</label>
+                                <input type="text" class="form-control" id="task_title" name="task_title" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="task_description" class="form-label">Описание</label>
+                                <textarea class="form-control" id="task_description" name="task_description" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="task_contact" class="form-label">Выберите контакт</label>
+                                <select class="form-select" id="task_contact" name="task_contact" required>
+                                    <option value="1">Петр Петров</option>
+                                    <option value="2">Иван Иванов</option>
+                                    <option value="3">Мария Михайлова</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="task_due_date" class="form-label">Срок выполнения</label>
+                                <input type="date" class="form-control" id="task_due_date" name="task_due_date" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Добавить задачу</button>
+                        </form>
+                    </div>
+                </div>
+
+                <h3>Список задач</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Заголовок</th>
+                            <th>Описание</th>
+                            <th>Контакт</th>
+                            <th>Срок</th>
+                            <th>Статус</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="task-title">Задача 1</td>
+                            <td>Описание задачи 1</td>
+                            <td>Петр Петров</td>
+                            <td>2024-12-01</td>
+                            <td><span class="task-status pending">Ожидает</span></td>
+                            <td>
+                                <a href="#" class="btn btn-warning">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="task-title">Задача 2</td>
+                            <td>Описание задачи 2</td>
+                            <td>Иван Иванов</td>
+                            <td>2024-12-05</td>
+                            <td><span class="task-status in-progress">В процессе</span></td>
+                            <td>
+                                <a href="#" class="btn btn-warning">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="task-title">Задача 3</td>
+                            <td>Описание задачи 3</td>
+                            <td>Мария Михайлова</td>
+                            <td>2024-11-30</td>
+                            <td><span class="task-status completed">Завершено</span></td>
+                            <td>
+                                <a href="#" class="btn btn-warning">Редактировать</a>
+                                <a href="#" class="btn btn-danger">Удалить</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 CRM System. Все права защищены.</p>
+    </footer>
+
+    <!-- Подключение Bootstrap и других библиотек -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+<!-- Десятая часть CRM-системы с отчетами, календарем и уведомлениями -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM System - Отчеты и Календарь</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.0.2/dist/fullcalendar.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+            background-color: #2c3e50;
+        }
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ecf0f1;
+        }
+        .nav-link {
+            color: #ecf0f1 !important;
+        }
+        .nav-link:hover {
+            background-color: #34495e;
+            border-radius: 5px;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .card-header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+        .btn-primary, .btn-success, .btn-danger {
+            background-color: #2c3e50;
+            border-color: #2c3e50;
+        }
+        .btn-primary:hover, .btn-success:hover, .btn-danger:hover {
+            background-color: #34495e;
+            border-color: #34495e;
+        }
+        .table {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #2c3e50;
+            color: white;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+        .task-status {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .task-status.pending {
+            background-color: #f39c12;
+            color: white;
+        }
+        .task-status.in-progress {
+            background-color: #2980b9;
+            color: white;
+        }
+        .task-status.completed {
+            background-color: #27ae60;
+            color: white;
+        }
+        .notification {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #2980b9;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">CRM System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#contacts" data-bs-toggle="tab">Контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tasks" data-bs-toggle="tab">Задачи</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#reports" data-bs-toggle="tab">Отчеты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#calendar" data-bs-toggle="tab">Календарь</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Контент -->
+    <div class="container mt-5">
+        <div class="tab-content">
+            <!-- Контакты -->
+            <div class="tab-pane fade show active" id="contacts">
+                <h2>Управление контактами</h2>
+                <div class="card">
+                    <div class="card-header">Добавить новый контакт</div>
+                    <div class="card-body">
+                        <form action="/contacts/create" method="POST">
+                            <div class="mb-3">
+                                <label for="contact_name" class="form-label">Имя контакта</label>
+                                <input type="text" class="form-control" id="contact_name" name="contact_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contact_email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="contact_email" name="contact_email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contact_phone" class="form-label">Телефон</label>
+                                <input type="tel" class="form-control" id="contact_phone" name="contact_phone" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contact_address" class="form-label">Адрес</label>
+                                <input type="text" class="form-control" id="contact_address" name="contact_address" required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Добавить контакт</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Задачи -->
+            <div class="tab-pane fade" id="tasks">
+                <h2>Задачи</h2>
+                <div class="card">
+                    <div class="card-header">Добавить задачу</div>
+                    <div class="card-body">
+                        <form action="/tasks/create" method="POST">
+                            <div class="mb-3">
+                                <label for="task_title" class="form-label">Заголовок задачи</label>
+                                <input type="text" class="form-control" id="task_title" name="task_title" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="task_description" class="form-label">Описание</label>
+                                <textarea class="form-control" id="task_description" name="task_description" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="task_contact" class="form-label">Выберите контакт</label>
+                                <select class="form-select" id="task_contact" name="task_contact" required>
+                                    <option value="1">Петр Петров</option>
+                                    <option value="2">Иван Иванов</option>
+                                    <option value="3">Мария Михайлова</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="task_due_date" class="form-label">Срок выполнения</label>
+                                <input type="date" class="form-control" id="task_due_date" name="task_due_date" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Добавить задачу</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Отчеты -->
+            <div class="tab-pane fade" id="reports">
+                <h2>Отчеты</h2>
+                <div class="card">
+                    <div class="card-header">Создать отчет</div>
+                    <div class="card-body">
+                        <form action="/reports/create" method="POST">
+                            <div class="mb-3">
+                                <label for="report_type" class="form-label">Тип отчета</label>
+                                <select class="form-select" id="report_type" name="report_type" required>
+                                    <option value="tasks">Отчет по задачам</option>
+                                    <option value="contacts">Отчет по контактам</option>
+                                    <option value="sales">Отчет по продажам</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="report_date_range" class="form-label">Диапазон дат</label>
+                                <input type="text" class="form-control" id="report_date_range" name="report_date_range" required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Создать отчет</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Календарь -->
+            <div class="tab-pane fade" id="calendar">
+                <h2>Календарь задач</h2>
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Уведомления -->
+    <div id="notification" class="notification">
+        Задача была обновлена!
+    </div>
+
+    <!-- Подключение библиотек -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.0.2/dist/fullcalendar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Инициализация календаря
+            $('#calendar').fullCalendar({
+                events: [
+                    {
+                        title: 'Задача 1',
+                        start: '2024-12-01'
+                    },
+                    {
+                        title: 'Задача 2',
+                        start: '2024-12-05'
+                    },
+                    {
+                        title: 'Задача 3',
+                        start: '2024-11-30'
+                    }
+                ]
+            });
+
+            // Уведомления
+            function showNotification(message) {
+                $('#notification').text(message).fadeIn().delay(3000).fadeOut();
+            }
+
+            // Пример уведомления
+            setTimeout(function () {
+                showNotification('Задача была обновлена!');
+            }, 5000);
+        });
+    </script>
+
+    <footer class="footer">
+        <p>&copy; 2024 CRM System. Все права защищены.</p>
+    </footer>
+</body>
+
+</html>
+<!-- 11 часть CRM-системы: интеграции, комментарии, роли и история изменений -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM System - Важнейшие функции</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e9ecef;
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+            background-color: #2c3e50;
+        }
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ecf0f1;
+        }
+        .nav-link {
+            color: #ecf0f1 !important;
+        }
+        .nav-link:hover {
+            background-color: #34495e;
+            border-radius: 5px;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .card-header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+        .btn-primary, .btn-success, .btn-danger {
+            background-color: #2c3e50;
+            border-color: #2c3e50;
+        }
+        .btn-primary:hover, .btn-success:hover, .btn-danger:hover {
+            background-color: #34495e;
+            border-color: #34495e;
+        }
+        .table {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #2c3e50;
+            color: white;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+        .task-status {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .task-status.pending {
+            background-color: #f39c12;
+            color: white;
+        }
+        .task-status.in-progress {
+            background-color: #2980b9;
+            color: white;
+        }
+        .task-status.completed {
+            background-color: #27ae60;
+            color: white;
+        }
+        .comment-section {
+            margin-top: 20px;
+        }
+        .comment-section textarea {
+            width: 100%;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .comment {
+            background-color: #f1f1f1;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .chart-container {
+            margin-top: 30px;
+        }
+        .role-section {
+            margin-top: 30px;
+        }
+        .history-section {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">CRM System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#contacts" data-bs-toggle="tab">Контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tasks" data-bs-toggle="tab">Задачи</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#reports" data-bs-toggle="tab">Отчеты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#calendar" data-bs-toggle="tab">Календарь</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#comments" data-bs-toggle="tab">Комментарии</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#roles" data-bs-toggle="tab">Роли</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#history" data-bs-toggle="tab">История изменений</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Контент -->
+    <div class="container mt-5">
+        <div class="tab-content">
+            <!-- Контакты -->
+            <div class="tab-pane fade show active" id="contacts">
+                <h2>Управление контактами</h2>
+                <!-- Контент для работы с контактами -->
+            </div>
+
+            <!-- Задачи -->
+            <div class="tab-pane fade" id="tasks">
+                <h2>Задачи</h2>
+                <!-- Контент для задач -->
+            </div>
+
+            <!-- Отчеты -->
+            <div class="tab-pane fade" id="reports">
+                <h2>Отчеты</h2>
+                <div class="card">
+                    <div class="card-header">Отчеты по задачам</div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="tasksReportChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Календарь -->
+            <div class="tab-pane fade" id="calendar">
+                <h2>Календарь задач</h2>
+                <!-- Календарь задач -->
+            </div>
+
+            <!-- Комментарии -->
+            <div class="tab-pane fade" id="comments">
+                <h2>Комментарии</h2>
+                <div class="card">
+                    <div class="card-header">Добавить комментарий</div>
+                    <div class="card-body">
+                        <textarea class="form-control" placeholder="Напишите комментарий..."></textarea>
+                        <button class="btn btn-primary mt-2">Добавить</button>
+                    </div>
+                </div>
+                <div class="comment-section">
+                    <div class="comment">
+                        <strong>Петр Петров</strong>: Задача выполнена успешно!
+                    </div>
+                    <div class="comment">
+                        <strong>Иван Иванов</strong>: Работаю над задачей.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Роли -->
+            <div class="tab-pane fade" id="roles">
+                <h2>Роли и доступ</h2>
+                <div class="role-section">
+                    <h4>Роль администратора</h4>
+                    <p>Доступ к полному функционалу системы.</p>
+                    <h4>Роль менеджера</h4>
+                    <p>Доступ к задачам и контактам, без возможности изменять настройки.</p>
+                </div>
+            </div>
+
+            <!-- История изменений -->
+            <div class="tab-pane fade" id="history">
+                <h2>История изменений</h2>
+                <div class="history-section">
+                    <p><strong>Задача 1</strong> была обновлена 15 минут назад</p>
+                    <p><strong>Контакт Петр Петров</strong> был обновлен 1 день назад</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 CRM System. Все права защищены.</p>
+    </footer>
+
+    <!-- Подключение библиотек -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
+
+    <script>
+        // Пример диаграммы для отчетности по задачам
+        var ctx = document.getElementById('tasksReportChart').getContext('2d');
+        var tasksReportChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Задача 1', 'Задача 2', 'Задача 3'],
+                datasets: [{
+                    label: 'Задачи',
+                    data: [5, 10, 7],
+                    backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                    borderColor: 'rgba(76, 175, 80, 1)',
+                    borderWidth: 1
+                }]
+            }
+        });
+    </script>
+
+</body>
+</html>
